@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ydlab.mntbbackend.mapper.CollegeInfoMapper">
+
+    <select id="getCollegeInfoList" parameterType="string"
+            resultType="com.ydlab.mntbbackend.pojo.CollegeInfo">
+        select distinct coll.college_id          collegeId,
+                        coll.college_name        collegeName,
+                        coll.college_province_id collegeProvinceId
+        from mntb.college_info coll,
+             mntb.major_score_info maj
+        where coll.college_id = maj.college_id
+          and coll.college_province_id = #{province_id}
+          and maj.type = #{type}
+          and maj.year = #{year}
+    </select>
+
+</mapper>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ydlab.mntbbackend.mapper.MajorScoreInfoMapper">
+
+    <select id="getMajorGroupInfoList" resultType="string" parameterType="string">
+        select distinct maj.major_field_code
+        from mntb.major_score_info maj
+        where maj.college_id = #{college_id}
+          and maj.type = #{type}
+          and maj.year = #{year}
+    </select>
+
+    <select id="getMajorInfoList" resultType="com.ydlab.mntbbackend.pojo.ipojo.iMajorInfo" parameterType="string">
+        select maj.college_id       collegeId,
+               coll.college_name    collegeName,
+               maj.type             type,
+               maj.major_field_code majorGroupId,
+               maj.major            majorName,
+               maj.major_notes      majorNotes,
+               maj.score_min        majorScore1
+        from mntb.major_score_info maj,
+             mntb.college_info coll
+        where maj.year = #{year}
+          and maj.college_id = #{college_id}
+          and maj.type = #{type}
+          and maj.major_field_code = #{major_group_id}
+          and maj.college_id = coll.college_id
+    </select>
+
+    <select id="getMajorScoreList" parameterType="string" resultType="string">
+        select maj.score_min
+        from mntb.major_score_info maj
+        where maj.year = #{year}
+          and maj.college_id = #{college_id}
+          and maj.type = #{type}
+          and maj.major_field_code = #{major_group_id}
+          and maj.major = #{major_name}
+    </select>
+
+    <select id="getMajorRecommend" parameterType="string" resultType="com.ydlab.mntbbackend.pojo.ipojo.iMajorInfo">
+        select maj.college_id       collegeId,
+               coll.college_name    collegeName,
+               maj.type             type,
+               maj.major_field_code majorGroupId,
+               maj.major            majorName,
+               maj.major_notes      majorNotes,
+               maj.score_min        majorScore1
+        from mntb.major_score_info maj,
+             mntb.college_info coll
+        where maj.major_field_code = #{major_field_code}
+          and maj.score_min &lt; #{total_score}
+          and maj.score_min &gt; #{total_score_min}
+          and maj.year = #{year}
+          and coll.college_id = maj.college_id
+          and coll.college_province_id = #{province_id}
+          and maj.type = #{type}
+    </select>
+
+    <select id="getMajorGroupScoreList" parameterType="string" resultType="string">
+        select score_min
+        from mntb.major_score_info
+        where year = #{year}
+          and college_id = #{college_id}
+          and type = #{type}
+          and major_field_code = #{major_group_id}
+    </select>
+
+    <select id="getAdjustVolunteerByAsc" resultType="com.ydlab.mntbbackend.pojo.ipojo.iMajorInfo"
+            parameterType="string">
+        select maj.college_id       collegeId,
+               coll.college_name    collegeName,
+               maj.type             type,
+               maj.major_field_code majorGroupId,
+               maj.major            majorName,
+               maj.major_notes      majorNotes,
+               maj.score_min        majorScore1
+        from mntb.major_score_info maj,
+             mntb.college_info coll
+        where maj.year = #{year}
+          and maj.college_id = #{college_id}
+          and maj.type = #{type}
+          and maj.major_field_code = #{major_group_id}
+          and maj.college_id = coll.college_id
+        order by maj.score_min asc
+    </select>
+
+</mapper>

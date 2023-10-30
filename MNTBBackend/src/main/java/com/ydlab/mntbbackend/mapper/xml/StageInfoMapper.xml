@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ydlab.mntbbackend.mapper.StageInfoMapper">
+
+    <select id="getStageId" resultType="string" parameterType="string">
+        select stage_id
+        from mntb.stage_info stage
+        where stage.stage_start_time &lt; #{current_time}
+          and stage.stage_end_time &gt; #{current_time}
+    </select>
+
+</mapper>

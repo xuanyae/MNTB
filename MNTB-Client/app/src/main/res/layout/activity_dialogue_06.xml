@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#4682b4"
+    android:orientation="vertical"
+    tools:context=".activity.DialogueActivity_06">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/pic_back_01" />
+
+        <TextView
+            android:id="@+id/textView_tittle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="院校专业组1"
+            android:textColor="@color/black"
+            android:textSize="32sp" />
+    </FrameLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <androidx.viewpager.widget.PagerTabStrip
+            android:id="@+id/pagerTabStrip"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp" />
+    </androidx.viewpager.widget.ViewPager>
+
+</LinearLayout>

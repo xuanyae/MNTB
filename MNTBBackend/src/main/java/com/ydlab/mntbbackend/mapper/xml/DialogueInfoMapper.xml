@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ydlab.mntbbackend.mapper.DialogueInfoMapper">
+
+    <select id="getDialogueInfoByDialogueId" resultMap="AllDialogueInfo" parameterType="string">
+        select dial.dialogue_id                       dialogueId,
+               dial.stage_id                          stageId,
+               dial.npc_id                            npcId,
+               dial.dialogue_content                  dialogueContent,
+               dial.next_dialogue_id                  nextDialogueId,
+               dial.dialogue_judgment_id              dialogueJudgmentId,
+               dial.dialogue_fill_id                  dialogueFillId,
+               dial.dialogue_waiting_time             dialogueWaitingTime,
+               dial.dialogue_extras_content           dialogueExtrasContent,
+               dial.dialogue_flag                     dialogueFlag,
+               jud.dialogue_judgment_branch_order     dialogueJudgmentBranchOrder,
+               jud.dialogue_judgment_next_dialogue_id dialogueJudgmentNextDialogueId
+        from mntb.dialogue_info dial,
+             mntb.dialogue_judgment_info jud
+        where dial.dialogue_judgment_id = jud.dialogue_judgment_id
+          and dial.dialogue_id = #{dialogue_id}
+    </select>
+
+    <resultMap id="AllDialogueInfo" type="com.ydlab.mntbbackend.pojo.ipojo.iDialogueInfo">
+        <result property="dialogueId" column="dialogueId"/>
+        <result property="stageId" column="stageId"/>
+        <result property="npcId" column="npcId"/>
+        <result property="dialogueContent" column="dialogueContent"/>
+        <result property="nextDialogueId" column="nextDialogueId"/>
+        <result property="dialogueJudgmentId" column="dialogueJudgmentId"/>
+        <result property="dialogueFillId" column="dialogueFillId"/>
+        <result property="dialogueWaitingTime" column="dialogueWaitingTime"/>
+        <result property="dialogueExtrasContent" column="dialogueExtrasContent"/>
+        <result property="dialogueFlag" column="dialogueFlag"/>
+        <collection property="dialogueJudgmentInfoList" ofType="com.ydlab.mntbbackend.pojo.ipojo.iDialogueJudgmentInfo">
+            <result property="dialogueJudgmentBranchOrder" column="dialogueJudgmentBranchOrder"/>
+            <result property="dialogueJudgmentNextDialogueId" column="dialogueJudgmentNextDialogueId"/>
+        </collection>
+    </resultMap>
+
+</mapper>

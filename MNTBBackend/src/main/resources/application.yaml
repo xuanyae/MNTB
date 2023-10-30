@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    username: root
+    password:
+    url: jdbc:mysql://localhost:3306/mntb?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    time-zone: GMT+8 #东八区
+
+server:
+  port: 8080
+
+mybatis-plus:
+  mapper-locations: classpath*:com/ydlab/mntbbackend/mapper/xml/*Mapper.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #打开Mybatis_Plus日志输出
+  #    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl #关闭Mybatis_Plus日志输出
+  #配置逻辑删除  没删除的为0 删除的为1
+  global-config:
+    db-config:
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+#开启驼峰命名转换
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
